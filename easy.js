@@ -31,9 +31,72 @@ var assert = require("assert")
 // Explanation: Empty array...
 
 const altNumbers = (numArray) => {
-    // TODO: COMPLETE THIS FUNCTION
-    return [];
+    let positive = [];
+    let negative = [];
+
+    for (let i = 0; i < numArray.length; i++) {
+        if (numArray[i] >= 0) {
+            positive.push(numArray[i]);
+        } else {
+            negative.push(numArray[i]);
+        }
+    }
+
+    if (positive.length > negative.length) {
+        return positiveFirstArray(positive, negative);
+    } else if (positive.length < negative.length) {
+        return negativeFirstArray(positive, negative);
+    } 
+
+    // equal case 
+    if (positive[0] == numArray[0]) {
+        return positiveFirstArray(positive, negative);
+    } else {
+        return negativeFirstArray(positive, negative);
+    }
+    
 }
+
+function positiveFirstArray (positive, negative) {
+    let positive_index = 0;
+    let negative_index = 0;
+    let counter = 0;
+    let res = [];
+
+    while (counter < positive.length + negative.length) {
+        if (counter % 2 == 0 && positive_index < positive.length) {
+            res.push(positive[positive_index]);
+            positive_index++;
+        } else if (counter % 2 == 1 && negative_index < negative.length){
+            res.push(negative[negative_index]);
+            negative_index++;
+        }
+        counter++;
+    }
+
+    return res; 
+}
+
+function negativeFirstArray(positive, negative) {
+    let positive_index = 0;
+    let negative_index = 0;
+    let counter = 0;
+    let res = [];
+
+    while (counter < positive.length + negative.length) {
+        if (counter % 2 == 1 && positive_index < positive.length) {
+            res.push(positive[positive_index]);
+            positive_index++;
+        } else if (counter % 2 == 0 && negative_index < negative.length) {
+            res.push(negative[negative_index]);
+            negative_index++;
+        }
+        counter++;
+    }
+
+    return res;
+}
+
 
 module.exports = { altNumbers } // Do not modify this line
 
